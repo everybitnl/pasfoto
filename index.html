@@ -8,34 +8,78 @@
 	position: relative;
 	width: 297px;
 	height: 420px;
-	background: #E54545;
 	margin: 20px auto;
-/*	box-shadow: 2px 2px 10px #aaa;*/
+	box-shadow: 0px 2px 2px #aaa;
 }
 .text {
 	font-family: HelveticaNeueLTPro-Bd, sans-serif;
 	font-weight: 700;
 	font-style: normal;
 	font-size: 3.2em;
-	color: #fff;
 	padding: 1.2em 0.4em 0;
 }
 .logo {
 	height: 40px;
+	width: 40px;
 	position: absolute;
 	bottom: 10px;
 	right: 10px;
+	background: url() center center no-repeat;
+	background-size: cover;
 }
 input {
 	display: block;
 	width: 297px;
 	margin: auto;
 }
+.colors {
+	width: 297px;
+	text-align: center;
+	margin: 20px auto;
+}
+.color {
+	width: 50px;
+	height: 50px;
+	border: 2px solid#1D1621;
+	margin: 4px;
+	padding: 2px;
+	font-family: HelveticaNeueLTPro-Bd, sans-serif;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 50px;
+	display: inline-block;
+	cursor: pointer;
+}
+[data-color="red"] {
+	background: #E54545;
+	color: #FFFFFF;
+}
+[data-color="red"] .logo {
+	background-image: url(https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg);
+}
+[data-color="black"] {
+	background: #1D1621;
+	color: #FFFFFF;
+}
+[data-color="black"] .logo {
+	background-image: url(https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg);
+}
+[data-color="white"] {
+	background: #F9F9F6;
+	color: #1D1621;
+}
+[data-color="white"] .logo {
+	background-image: url(https://www.tiltshift.nl/assets/img/logo_cropped.svg);
+}
+input {
+	border: 2px solid#1D1621;
+	font-size: 1.4em;
+	padding: 2px;
+}
 </style>
 </head>
 <body>
-
-<div class="poster">
+<div class="poster" data-color="red">
 <div class="text">
 Jouw<br>
 idee<br>
@@ -43,13 +87,22 @@ verdient<br>
 een<br>
 poster.
 </div>
-<img class="logo" src="https://raw.githubusercontent.com/tiltshiftnl/tiltshiftnl.github.io/master/assets/img/logo_transparent_cropped.svg">
+<div class="logo"></div>
+</div>
+
+<div class="colors">
+<div class="color" data-color="red">red</div>
+<div class="color" data-color="black">black</div>
+<div class="color" data-color="white">white</div>
 </div>
 
 <input></input>
 <script>
 $("input").keyup(function () {
 	$(".text").html($(this).val().replace(/ /g, "<br>"));
+});
+$(".color").click(function() {
+	$(".poster").attr("data-color", $(this).data("color"));
 });
 </script>
 
