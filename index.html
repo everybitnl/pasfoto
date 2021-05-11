@@ -98,8 +98,16 @@ poster.
 
 <input></input>
 <script>
+var originalFontSize = parseFloat($(".text").css('font-size'));
 $("input").keyup(function () {
 	$(".text").html($(this).val().replace(/ /g, "<br>"));
+	var fontSize = parseFloat($(".text").css('font-size'));
+	while ($(".text").innerHeight() > 380) {
+		$(".text").css('font-size', fontSize *= 0.99);
+	}
+	while ($(".text").innerHeight() < 340 && fontSize < originalFontSize) {
+		$(".text").css('font-size', fontSize *= 1.01);
+	}
 });
 $(".color").click(function() {
 	$(".poster").attr("data-color", $(this).data("color"));
