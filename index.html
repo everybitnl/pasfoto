@@ -139,10 +139,10 @@ button {
 				"color": "#FFFFFF"
 			}
 		};
-		styles.red.img.src = "https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg";
-		styles.blue.img.src = "https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg";
-		styles.black.img.src = "https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg";
-		styles.white.img.src = "https://www.tiltshift.nl/assets/img/logo_cropped.svg";
+		styles.red.img.src = "logo_transparent_cropped.svg";
+		styles.blue.img.src = "logo_transparent_cropped.svg";
+		styles.black.img.src = "logo_transparent_cropped.svg";
+		styles.white.img.src = "logo_cropped.svg";
 
 		var originalFontSize = parseFloat($(".text").css('font-size'));
 		var marginTop = 100;
@@ -193,10 +193,9 @@ button {
 			drawCanvas(text, style);
 		});
 		$("button").click(function() {
-			var canvas = document.getElementById("poster");
-			var dataURL = canvas.toDataURL("image/png");
-			var newTab = window.open('about:blank','Tiltshift poster');
-			newTab.document.write("<img src='" + dataURL + "' alt='Tiltshift poster'/>");
+			var c = document.getElementById("poster");
+			window.location.href = c.toDataURL("image/png")
+				.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
 		});
 	</script>
 
