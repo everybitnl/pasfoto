@@ -29,10 +29,18 @@
 	background: url() center center no-repeat;
 	background-size: cover;
 }
-input {
+input, button {
 	display: block;
+	margin: 20px auto;
+	font-size: 1.4em;
+}
+input {
 	width: 297px;
-	margin: auto;
+	padding: 2px;
+	border: 2px solid#1D1621;
+}
+button {
+	cursor: pointer;
 }
 .colors {
 	width: 297px;
@@ -80,11 +88,6 @@ input {
 [data-color="white"] .logo {
 	background-image: url(https://www.tiltshift.nl/assets/img/logo_cropped.svg);
 }
-input {
-	border: 2px solid#1D1621;
-	font-size: 1.4em;
-	padding: 2px;
-}
 </style>
 </head>
 <body>
@@ -110,6 +113,7 @@ input {
 			<div class="color" data-color="black">black</div>
 		</div>
 		<input></input>
+		<button>Opslaan</button>
 	</div>
 
 	<script>
@@ -187,6 +191,12 @@ input {
 		$(".color").click(function() {
 			style = $(this).data("color");
 			drawCanvas(text, style);
+		});
+		$("button").click(function() {
+			var canvas = document.getElementById("poster");
+			var dataURL = canvas.toDataURL("image/png");
+			var newTab = window.open('about:blank','Tiltshift poster');
+			newTab.document.write("<img src='" + dataURL + "' alt='Tiltshift poster'/>");
 		});
 	</script>
 
