@@ -11,7 +11,7 @@
 <body>
 	<div>
 		<canvas id="poster" class="poster" style="display: none"></canvas>
-		<div class="poster" data-color="red">
+		<div class="poster">
 			<div class="text">
 				Jouw<br>
 				idee<br>
@@ -24,38 +24,53 @@
 	</div>
 	<div>
 		<input></input>
-		<div class="colors">
-			<div class="color" data-color="red">red</div>
-			<div class="color" data-color="white">white</div>
-			<div class="color" data-color="blue">blue</div>
-			<div class="color" data-color="black">black</div>
-		</div>
+		<div class="colors"></div>
 		<button>Opslaan</button>
 	</div>
 
 	<script>
 		var styles = {
+			"white": {
+				"img": "logo_cropped.svg",
+				"background": "#F9F9F6",
+				"color": "#1D1621"
+			},
+			"black": {
+				"img": "logo_transparent_cropped.svg",
+				"background": "#1D1621",
+				"color": "#FFFFFF"
+			},
 			"red": {
 				"img": "logo_transparent_cropped.svg",
 				"background": "#E54545",
 				"color": "#FFFFFF"
 			},
-			"white": {
+			"w/r": {
 				"img": "logo_cropped.svg",
 				"background": "#F9F9F6",
-				"color": "#1D1621"
+				"color": "#E54545"
 			},
 			"blue": {
 				"img": "logo_transparent_cropped.svg",
 				"background": "#1E59A6",
 				"color": "#FFFFFF"
 			},
-			"black": {
+			"w/b": {
+				"img": "logo_cropped.svg",
+				"background": "#F9F9F6",
+				"color": "#1E59A6"
+			},
+			"phot01": {
 				"img": "logo_transparent_cropped.svg",
-				"background": "#1D1621",
-				"color": "#FFFFFF"
+				"background": "#1D162133",
+				"color": "#FFFFFF",
+				"photo": "photo-001.jpg"
 			}
 		};
+
+		for (color in styles) {
+			$(".colors").append(`<div class="color" style="background: ${styles[color].background}; color: ${styles[color].color}" data-color="${color}">${color}</div>`);
+		}
 
 		var originalFontSize = parseFloat($(".text").css('font-size'));
 
@@ -80,14 +95,7 @@
 		var text = "Jouw idee verdient een poster.";
 		var style = "red";
 
-		function drawCanvas () {
-			ctx.fillStyle = styles[style].background;
-			ctx.fillRect(0, 0, c.width, c.height);
-
-			//ctx.fillStyle = "#AAAAAA";
-			//ctx.fillRect(0, 0, c.width, marginTop);
-			//ctx.fillRect(0, c.height-marginBottom, c.width, c.height);
-
+		function drawWords() {
 			var words = text.split(" ");
 			var fontSize = originalFontSize * resolution;
 			var lineHeight = 60 * resolution;
@@ -103,7 +111,9 @@
 			for (var i = 0; i < words.length; ++i) {
 				ctx.fillText(words[i], marginLeft, marginTop + i * lineHeight);
 			}
+		}
 
+		function drawLogo() {
 			var img = new Image();
 			img.onload = function () {
 				ctx.drawImage(img,
@@ -113,6 +123,35 @@
 				);
 			}
 			img.src = styles[style].img;
+		}
+
+		function drawCanvas() {
+			if (styles[style].photo) {
+				let img = new Image();
+				img.onload = function () {
+					ctx.drawImage(img,
+						0, 0,
+						c.width, c.height
+					);
+
+					ctx.fillStyle = styles[style].background;
+					ctx.fillRect(0, 0, c.width, c.height);
+
+					drawWords();
+					drawLogo();
+				}
+				img.src = styles[style].photo;
+			} else {
+				ctx.fillStyle = styles[style].background;
+				ctx.fillRect(0, 0, c.width, c.height);
+
+				//ctx.fillStyle = "#AAAAAA";
+				//ctx.fillRect(0, 0, c.width, marginTop);
+				//ctx.fillRect(0, c.height-marginBottom, c.width, c.height);
+
+				drawWords();
+				drawLogo();
+			}
 
 			$("div.poster").hide();
 			$("canvas.poster").show();

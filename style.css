@@ -5,6 +5,8 @@
 	margin: 21px auto;
 	box-shadow: 0px 2px 2px #aaa;
 	display: block;
+	background: #E54545;
+	color: #FFFFFF
 }
 .text {
 	font-family: HelveticaNeueLTPro-Bd, sans-serif;
@@ -54,20 +56,4 @@ button {
 	cursor: pointer;
 	font-size: 13px;
 	font-weight: 100;
-}
-[data-color="red"] {
-	background: #E54545;
-	color: #FFFFFF;
-}
-[data-color="black"] {
-	background: #1D1621;
-	color: #FFFFFF;
-}
-[data-color="blue"] {
-	background: #1E59A6;
-	color: #FFFFFF;
-}
-[data-color="white"] {
-	background: #F9F9F6;
-	color: #1D1621;
 }
