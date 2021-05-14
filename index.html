@@ -145,37 +145,47 @@ button {
 		styles.white.img.src = "logo_cropped.svg";
 
 		var originalFontSize = parseFloat($(".text").css('font-size'));
-		var marginTop = 100;
-		var marginBottom = 80;
-		var marginLeft = 20;
+
+		var canvasWidth = 297;
+		var canvasHeight = 420;
+		var resolution = 2;
+
+		var marginTop = 100 * resolution;
+		var marginBottom = 80 * resolution;
+		var marginLeft = 20 * resolution;
+
 		function drawCanvas (text, style = "red") {
 			var c = document.getElementById("poster");
+
+			c.width = canvasWidth * resolution;
+			c.height = canvasHeight * resolution;
+
 			var ctx = c.getContext("2d");
 
 			ctx.fillStyle = styles[style].background;
-			ctx.fillRect(0, 0, 297, 420);
+			ctx.fillRect(0, 0, c.width, c.height);
 
 			//ctx.fillStyle = "#AAAAAA";
 			//ctx.fillRect(0, 0, 297, marginTop);
 			//ctx.fillRect(0, 420-marginBottom, 297, 420);
 
 			var words = text.split(" ");
-			var fontSize = originalFontSize;
-			var lineHeight = 60;
+			var fontSize = originalFontSize * resolution;
+			var lineHeight = 60 * resolution;
 
 			if (words.length > 5) {
-				fontSize = originalFontSize * 5 / words.length;
-				lineHeight = (420 - marginTop - marginBottom) / (words.length - 1); // TODO explain
+				fontSize = fontSize * 5 / words.length;
+				lineHeight = (c.height - marginTop - marginBottom) / (words.length - 1);
 			}
 
 			ctx.font = `${fontSize}px HelveticaNeueLTPro-Bd`;
 			ctx.fillStyle = styles[style].color;
 
 			for (var i = 0; i < words.length; ++i) {
-				ctx.fillText(words[i], marginLeft, 100 + i * lineHeight);
+				ctx.fillText(words[i], marginLeft, marginTop + i * lineHeight);
 			}
 
-			ctx.drawImage(styles[style].img, 247, 370, 40, 40);
+			ctx.drawImage(styles[style].img, c.width - 50 * resolution, c.height - 50 * resolution, 40 * resolution, 40 * resolution);
 
 			$("div.poster").hide();
 			$("canvas.poster").show();
