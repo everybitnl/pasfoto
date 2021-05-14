@@ -1,0 +1,71 @@
+.poster {
+	position: relative;
+	width: 297px;
+	height: 420px;
+	margin: 21px auto;
+	box-shadow: 0px 2px 2px #aaa;
+	display: block;
+}
+.text {
+	font-family: HelveticaNeueLTPro-Bd, sans-serif;
+	font-style: normal;
+	font-size: 52px;
+	padding: 64px 21px 0;
+	line-height: 60px;
+}
+.logo {
+	height: 42px;
+	width: 42px;
+	position: absolute;
+	bottom: 11px;
+	right: 11px;
+	background: url(logo_transparent_cropped.svg) center center no-repeat;
+	background-size: cover;
+}
+input, button {
+	display: block;
+	margin: 21px auto;
+	font-size: 1.4em;
+}
+input {
+	width: 297px;
+	padding: 2px;
+	border: 2px solid#1D1621;
+}
+button {
+	cursor: pointer;
+}
+.colors {
+	width: 297px;
+	text-align: center;
+	margin: 21px auto;
+}
+.color {
+	width: 42px;
+	height: 42px;
+	border: 2px solid#1D1621;
+	margin: 4px;
+	padding: 2px;
+	font-family: HelveticaNeueLTPro-Bd, sans-serif;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 42px;
+	display: inline-block;
+	cursor: pointer;
+}
+[data-color="red"] {
+	background: #E54545;
+	color: #FFFFFF;
+}
+[data-color="black"] {
+	background: #1D1621;
+	color: #FFFFFF;
+}
+[data-color="blue"] {
+	background: #1E59A6;
+	color: #FFFFFF;
+}
+[data-color="white"] {
+	background: #F9F9F6;
+	color: #1D1621;
+}

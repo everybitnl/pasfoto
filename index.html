@@ -2,98 +2,15 @@
 <html>
 <head>
 <meta name='viewport' content='width=320,initial-scale=1,user-scalable=0'>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script	src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="https://www.tiltshift.nl/assets/fonts/TILTSHIFT.css">
-<style>
-.poster {
-	position: relative;
-	width: 297px;
-	height: 420px;
-	margin: 20px auto;
-	box-shadow: 0px 2px 2px #aaa;
-	display: block;
-}
-.text {
-	font-family: HelveticaNeueLTPro-Bd, sans-serif;
-	font-style: normal;
-	font-size: 52px;
-	padding: 59px 20px 0;
-	line-height: 60px;
-}
-.logo {
-	height: 40px;
-	width: 40px;
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	background: url() center center no-repeat;
-	background-size: cover;
-}
-input, button {
-	display: block;
-	margin: 20px auto;
-	font-size: 1.4em;
-}
-input {
-	width: 297px;
-	padding: 2px;
-	border: 2px solid#1D1621;
-}
-button {
-	cursor: pointer;
-}
-.colors {
-	width: 297px;
-	text-align: center;
-	margin: 20px auto;
-}
-.color {
-	width: 50px;
-	height: 50px;
-	border: 2px solid#1D1621;
-	margin: 4px;
-	padding: 2px;
-	font-family: HelveticaNeueLTPro-Bd, sans-serif;
-	color: #FFFFFF;
-	text-align: center;
-	line-height: 50px;
-	display: inline-block;
-	cursor: pointer;
-}
-[data-color="red"] {
-	background: #E54545;
-	color: #FFFFFF;
-}
-[data-color="red"] .logo {
-	background-image: url(https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg);
-}
-[data-color="black"] {
-	background: #1D1621;
-	color: #FFFFFF;
-}
-[data-color="black"] .logo {
-	background-image: url(https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg);
-}
-[data-color="blue"] {
-	background: #1E59A6;
-	color: #FFFFFF;
-}
-[data-color="blue"] .logo {
-	background-image: url(https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg);
-}
-[data-color="white"] {
-	background: #F9F9F6;
-	color: #1D1621;
-}
-[data-color="white"] .logo {
-	background-image: url(https://www.tiltshift.nl/assets/img/logo_cropped.svg);
-}
-</style>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<div>
-		<canvas id="poster" class="poster" width="297" height="420" style="display: none"></canvas>
-
+		<canvas id="poster" class="poster" style="display: none"></canvas>
 		<div class="poster" data-color="red">
 			<div class="text">
 				Jouw<br>
@@ -119,40 +36,41 @@ button {
 	<script>
 		var styles = {
 			"red": {
-				"img": new Image(),
+				"img": "logo_transparent_cropped.svg",
 				"background": "#E54545",
 				"color": "#FFFFFF"
 			},
 			"white": {
-				"img": new Image(),
+				"img": "logo_cropped.svg",
 				"background": "#F9F9F6",
 				"color": "#1D1621"
 			},
 			"blue": {
-				"img": new Image(),
+				"img": "logo_transparent_cropped.svg",
 				"background": "#1E59A6",
 				"color": "#FFFFFF"
 			},
 			"black": {
-				"img": new Image(),
+				"img": "logo_transparent_cropped.svg",
 				"background": "#1D1621",
 				"color": "#FFFFFF"
 			}
 		};
-		styles.red.img.src = "logo_transparent_cropped.svg";
-		styles.blue.img.src = "logo_transparent_cropped.svg";
-		styles.black.img.src = "logo_transparent_cropped.svg";
-		styles.white.img.src = "logo_cropped.svg";
 
+		var originalHeight = $(".poster").height();
 		var originalFontSize = parseFloat($(".text").css('font-size'));
 
-		var canvasWidth = 297;
-		var canvasHeight = 420;
+		var unit = 420;
+		var canvasHeight = unit;
+		var canvasWidth = Math.round(canvasHeight / Math.SQRT2);
+
 		var resolution = 2;
 
-		var marginTop = 100 * resolution;
-		var marginBottom = 80 * resolution;
-		var marginLeft = 20 * resolution;
+		var marginTop = canvasHeight / 4 * resolution;
+		var marginBottom = canvasHeight / 6 * resolution;
+		var marginLeft = canvasHeight / 20 * resolution;
+
+		var logoSize = canvasHeight / 10 * resolution;
 
 		function drawCanvas (text, style = "red") {
 			var c = document.getElementById("poster");
@@ -165,9 +83,9 @@ button {
 			ctx.fillStyle = styles[style].background;
 			ctx.fillRect(0, 0, c.width, c.height);
 
-			//ctx.fillStyle = "#AAAAAA";
-			//ctx.fillRect(0, 0, 297, marginTop);
-			//ctx.fillRect(0, 420-marginBottom, 297, 420);
+			ctx.fillStyle = "#AAAAAA";
+			ctx.fillRect(0, 0, c.width, marginTop);
+			ctx.fillRect(0, c.height-marginBottom, c.width, c.height);
 
 			var words = text.split(" ");
 			var fontSize = originalFontSize * resolution;
@@ -185,7 +103,15 @@ button {
 				ctx.fillText(words[i], marginLeft, marginTop + i * lineHeight);
 			}
 
-			ctx.drawImage(styles[style].img, c.width - 50 * resolution, c.height - 50 * resolution, 40 * resolution, 40 * resolution);
+			var img = new Image();
+			img.onload = function () {
+				ctx.drawImage(img,
+					c.width - (logoSize * 1.25),
+					c.height - (logoSize * 1.25),
+					logoSize, logoSize
+				);
+			}
+			img.src = styles[style].img;
 
 			$("div.poster").hide();
 			$("canvas.poster").show();
