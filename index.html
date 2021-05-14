@@ -11,13 +11,14 @@
 	height: 420px;
 	margin: 20px auto;
 	box-shadow: 0px 2px 2px #aaa;
+	display: block;
 }
 .text {
 	font-family: HelveticaNeueLTPro-Bd, sans-serif;
-	font-weight: 700;
 	font-style: normal;
-	font-size: 3.2em;
-	padding: 1.2em 0.4em 0;
+	font-size: 52px;
+	padding: 59px 20px 0;
+	line-height: 60px;
 }
 .logo {
 	height: 40px;
@@ -65,6 +66,13 @@ input {
 [data-color="black"] .logo {
 	background-image: url(https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg);
 }
+[data-color="blue"] {
+	background: #1E59A6;
+	color: #FFFFFF;
+}
+[data-color="blue"] .logo {
+	background-image: url(https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg);
+}
 [data-color="white"] {
 	background: #F9F9F6;
 	color: #1D1621;
@@ -80,40 +88,107 @@ input {
 </style>
 </head>
 <body>
-<div class="poster" data-color="red">
-<div class="text">
-Jouw<br>
-idee<br>
-verdient<br>
-een<br>
-poster.
-</div>
-<div class="logo"></div>
-</div>
+	<div>
+		<canvas id="poster" class="poster" width="297" height="420" style="display: none"></canvas>
 
-<div class="colors">
-<div class="color" data-color="red">red</div>
-<div class="color" data-color="black">black</div>
-<div class="color" data-color="white">white</div>
-</div>
+		<div class="poster" data-color="red">
+			<div class="text">
+				Jouw<br>
+				idee<br>
+				verdient<br>
+				een<br>
+				poster.
+			</div>
+			<div class="logo"></div>
+		</div>	
+	</div>
+	<div>
+		<div class="colors">
+			<div class="color" data-color="red">red</div>
+			<div class="color" data-color="white">white</div>
+			<div class="color" data-color="blue">blue</div>
+			<div class="color" data-color="black">black</div>
+		</div>
+		<input></input>
+	</div>
 
-<input></input>
-<script>
-var originalFontSize = parseFloat($(".text").css('font-size'));
-$("input").keyup(function () {
-	$(".text").html($(this).val().replace(/ /g, "<br>"));
-	var fontSize = parseFloat($(".text").css('font-size'));
-	while ($(".text").innerHeight() > 380) {
-		$(".text").css('font-size', fontSize *= 0.99);
-	}
-	while ($(".text").innerHeight() < 340 && fontSize < originalFontSize) {
-		$(".text").css('font-size', fontSize *= 1.01);
-	}
-});
-$(".color").click(function() {
-	$(".poster").attr("data-color", $(this).data("color"));
-});
-</script>
+	<script>
+		var styles = {
+			"red": {
+				"img": new Image(),
+				"background": "#E54545",
+				"color": "#FFFFFF"
+			},
+			"white": {
+				"img": new Image(),
+				"background": "#F9F9F6",
+				"color": "#1D1621"
+			},
+			"blue": {
+				"img": new Image(),
+				"background": "#1E59A6",
+				"color": "#FFFFFF"
+			},
+			"black": {
+				"img": new Image(),
+				"background": "#1D1621",
+				"color": "#FFFFFF"
+			}
+		};
+		styles.red.img.src = "https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg";
+		styles.blue.img.src = "https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg";
+		styles.black.img.src = "https://www.tiltshift.nl/assets/img/logo_transparent_cropped.svg";
+		styles.white.img.src = "https://www.tiltshift.nl/assets/img/logo_cropped.svg";
+
+		var originalFontSize = parseFloat($(".text").css('font-size'));
+		var marginTop = 100;
+		var marginBottom = 80;
+		var marginLeft = 20;
+		function drawCanvas (text, style = "red") {
+			var c = document.getElementById("poster");
+			var ctx = c.getContext("2d");
+
+			ctx.fillStyle = styles[style].background;
+			ctx.fillRect(0, 0, 297, 420);
+
+			//ctx.fillStyle = "#AAAAAA";
+			//ctx.fillRect(0, 0, 297, marginTop);
+			//ctx.fillRect(0, 420-marginBottom, 297, 420);
+
+			var words = text.split(" ");
+			var fontSize = originalFontSize;
+			var lineHeight = 60;
+
+			if (words.length > 5) {
+				fontSize = originalFontSize * 5 / words.length;
+				lineHeight = (420 - marginTop - marginBottom) / (words.length - 1); // TODO explain
+			}
+
+			ctx.font = `${fontSize}px HelveticaNeueLTPro-Bd`;
+			ctx.fillStyle = styles[style].color;
+
+			for (var i = 0; i < words.length; ++i) {
+				ctx.fillText(words[i], marginLeft, 100 + i * lineHeight);
+			}
+
+			ctx.drawImage(styles[style].img, 247, 370, 40, 40);
+
+			$("div.poster").hide();
+			$("canvas.poster").show();
+		}
+
+		var text = "Jouw idee verdient een poster.";
+		var style = "red";
+
+		$("input").keyup(function () {
+			text = $(this).val();
+			drawCanvas(text, style);
+		});
+		$(".color").click(function() {
+			style = $(this).data("color");
+			drawCanvas(text, style);
+		});
+	</script>
 
 <body>
 </html>
