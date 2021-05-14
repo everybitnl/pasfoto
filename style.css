@@ -46,12 +46,14 @@ button {
 	border: 2px solid#1D1621;
 	margin: 4px;
 	padding: 2px;
-	font-family: HelveticaNeueLTPro-Bd, sans-serif;
+	font-family: Arial;
 	color: #FFFFFF;
 	text-align: center;
 	line-height: 42px;
 	display: inline-block;
 	cursor: pointer;
+	font-size: 13px;
+	font-weight: 100;
 }
 [data-color="red"] {
 	background: #E54545;

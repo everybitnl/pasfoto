@@ -23,13 +23,13 @@
 		</div>	
 	</div>
 	<div>
+		<input></input>
 		<div class="colors">
 			<div class="color" data-color="red">red</div>
 			<div class="color" data-color="white">white</div>
 			<div class="color" data-color="blue">blue</div>
 			<div class="color" data-color="black">black</div>
 		</div>
-		<input></input>
 		<button>Opslaan</button>
 	</div>
 
@@ -57,13 +57,11 @@
 			}
 		};
 
-		var originalHeight = $(".poster").height();
 		var originalFontSize = parseFloat($(".text").css('font-size'));
 
-		var unit = 420;
-		var canvasHeight = unit;
+		var canvasHeight = 420;
 		var canvasWidth = Math.round(canvasHeight / Math.SQRT2);
-
+		
 		var resolution = 2;
 
 		var marginTop = canvasHeight / 4 * resolution;
@@ -72,20 +70,23 @@
 
 		var logoSize = canvasHeight / 10 * resolution;
 
-		function drawCanvas (text, style = "red") {
-			var c = document.getElementById("poster");
+		var c = document.getElementById("poster");
 
-			c.width = canvasWidth * resolution;
-			c.height = canvasHeight * resolution;
+		c.width = canvasWidth * resolution;
+		c.height = canvasHeight * resolution;
 
-			var ctx = c.getContext("2d");
+		var ctx = c.getContext("2d");
 
+		var text = "Jouw idee verdient een poster.";
+		var style = "red";
+
+		function drawCanvas () {
 			ctx.fillStyle = styles[style].background;
 			ctx.fillRect(0, 0, c.width, c.height);
 
-			ctx.fillStyle = "#AAAAAA";
-			ctx.fillRect(0, 0, c.width, marginTop);
-			ctx.fillRect(0, c.height-marginBottom, c.width, c.height);
+			//ctx.fillStyle = "#AAAAAA";
+			//ctx.fillRect(0, 0, c.width, marginTop);
+			//ctx.fillRect(0, c.height-marginBottom, c.width, c.height);
 
 			var words = text.split(" ");
 			var fontSize = originalFontSize * resolution;
@@ -117,21 +118,18 @@
 			$("canvas.poster").show();
 		}
 
-		var text = "Jouw idee verdient een poster.";
-		var style = "red";
-
 		$("input").keyup(function () {
 			text = $(this).val();
-			drawCanvas(text, style);
+			drawCanvas();
 		});
 		$(".color").click(function() {
 			style = $(this).data("color");
-			drawCanvas(text, style);
+			drawCanvas();
 		});
 		$("button").click(function() {
-			var c = document.getElementById("poster");
-			window.location.href = c.toDataURL("image/png")
-				.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
+			var dataURL = c.toDataURL("image/png");
+			var newTab = window.open('about:blank','Tiltshift poster');
+			newTab.document.write(`<img src='${dataURL}' alt='${text}'/>`);
 		});
 	</script>
 
