@@ -1,13 +1,13 @@
-function Poster(elementId, text) {
-    var c = document.getElementById(elementId);
+function Poster(parentElement, text = "") {
+    var c = document.createElement("canvas");
+    c.className = "poster";
+    parentElement.prepend(c);
 
     var ctx = c.getContext("2d");
 
-    var originalFontSize = parseFloat($(".text").css('font-size'));
-
+    var originalFontSize = 52;
     var canvasHeight = 420;
     var canvasWidth = Math.round(canvasHeight / Math.SQRT2); // A0 verhoudingen
-    
     var resolution = 2;
 
     c.width = canvasWidth * resolution;
@@ -19,6 +19,8 @@ function Poster(elementId, text) {
     
     var logoSize = canvasHeight / 10 * resolution;
 
+    var orientation = "portrait";
+
     function setText(aText) {
         text = aText;
     }
@@ -27,7 +29,15 @@ function Poster(elementId, text) {
         style = aStyle;
     }
 
-    function drawWords() {
+    function rotateCanvas() {
+        orientation = orientation === "portrait" ? "landscape" : "portrait";
+        c.width += c.height; console.log(c.width);
+        c.height = c.width - c.height;
+        c.width -= c.height;
+        drawCanvas();
+    }
+
+    function drawWordsPortrait() {
         var words = text.split(" ");
         var fontSize = originalFontSize * resolution;
         var lineHeight = 60 * resolution;
@@ -43,6 +53,33 @@ function Poster(elementId, text) {
         for (var i = 0; i < words.length; ++i) {
             ctx.fillText(words[i], marginLeft, marginTop + i * lineHeight);
         }
+    }
+
+    function drawWordsLandscape() {
+        var words = text.split(" ");
+        var fontSize = originalFontSize * resolution;
+        var lineHeight = 60 * resolution;
+    
+        ctx.font = `${fontSize}px HelveticaNeueLTPro-Bd`;
+        ctx.fillStyle = style.color;
+        ctx.textAlign = "center";
+    
+        var textlines = [words[0]];
+        for (var i = 1, j = 0; i < words.length; ++i) {
+            if (ctx.measureText(textlines[j]).width + ctx.measureText(` ${words[i]}`).width < (c.width - 2 * marginLeft)) {
+                textlines[j] += ` ${words[i]}`;
+            } else {
+                textlines[++j] = words[i];
+            }
+        }
+
+        for (var j = 0; j < textlines.length; ++j) {
+            ctx.fillText(textlines[j], c.width / 2, (c.height - (textlines.length - 1) * lineHeight) / 2 + (j + 0.25) * lineHeight);
+        }
+    }
+
+    function drawWords() {
+        orientation === "portrait" ? drawWordsPortrait() : drawWordsLandscape();
     }
     
     function drawLogo() {
@@ -96,9 +133,6 @@ function Poster(elementId, text) {
         drawBackground();
         drawWords();
         drawLogo();
-    
-        $("div.poster").hide();
-        $("canvas.poster").show();
     }
 
     function exportImage() {
@@ -110,6 +144,7 @@ function Poster(elementId, text) {
     return {
         setText,
         setStyle,
+        rotateCanvas,
         drawCanvas,
         exportImage
     };
