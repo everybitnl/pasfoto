@@ -1,0 +1,67 @@
+{
+    "red": {
+        "img": "logo_transparent_cropped.svg",
+        "background": "#E54545",
+        "color": "#FFFFFF"
+    },
+    "w/r": {
+        "img": "logo_cropped.svg",
+        "background": "#F9F9F6",
+        "color": "#E54545"
+    },
+    "blue": {
+        "img": "logo_transparent_cropped.svg",
+        "background": "#1E59A6",
+        "color": "#FFFFFF"
+    },
+    "w/b": {
+        "img": "logo_cropped.svg",
+        "background": "#F9F9F6",
+        "color": "#1E59A6"
+    },
+    "black": {
+        "img": "logo_transparent_cropped.svg",
+        "background": "#1D1621",
+        "color": "#FFFFFF"
+    },
+    "white": {
+        "img": "logo_cropped.svg",
+        "background": "#F9F9F6",
+        "color": "#1D1621"
+    },
+    "photo1": {
+        "img": "logo_transparent_cropped.svg",
+        "background": "#1D162177",
+        "color": "#FFFFFF",
+        "photo": "photo-001.jpg",
+        "filter": "grayscale(50%)"
+    },
+    "photo2": {
+        "img": "logo_transparent_cropped.svg",
+        "background": "#1D162177",
+        "color": "#FFFFFF",
+        "photo": "photo-002.jpg",
+        "filter": "grayscale(50%)"
+    },
+    "photo3": {
+        "img": "logo_transparent_cropped.svg",
+        "background": "#1D162177",
+        "color": "#FFFFFF",
+        "photo": "photo-003.jpg",
+        "filter": "grayscale(50%)"
+    },
+    "photo4": {
+        "img": "logo_transparent_cropped.svg",
+        "background": "#1D162177",
+        "color": "#FFFFFF",
+        "photo": "photo-004.jpg",
+        "filter": "grayscale(50%)"
+    },
+    "photo5": {
+        "img": "logo_transparent_cropped.svg",
+        "background": "#1D162177",
+        "color": "#FFFFFF",
+        "photo": "photo-005.jpg",
+        "filter": "grayscale(50%)"
+    }
+}
