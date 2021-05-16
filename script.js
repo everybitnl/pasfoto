@@ -1,3 +1,4 @@
+$("input[type=file]").hide();
 $.getJSON("styles.json", function (styles) {
     var poster = new Poster(document.body, styles["red"], "Jouw werk verdient een poster.");
     for (style in styles) {
