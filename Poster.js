@@ -28,11 +28,12 @@ function Poster(parentElement, style, text = "", photo = "") {
         drawCanvas();
     }
 
-    function setPhoto(aPhoto) {
+    async function setPhoto(aPhoto) {
         photo = aPhoto;
+        await drawPhoto();
+        photo = c.toDataURL("image/png");
         drawCanvas();
     }
-
 
     function setStyle(aStyle) {
         style = aStyle;
@@ -135,7 +136,6 @@ function Poster(parentElement, style, text = "", photo = "") {
     
                 return resolve(img);
             }
-            img.onerror = reject;
             img.src = photo; // TODO cache
         });
     }
