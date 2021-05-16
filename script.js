@@ -1,4 +1,4 @@
-var poster = new Poster(document.body, "Jouw idee verdient een poster.");
+var poster = new Poster(document.body, "Jouw werk verdient een poster.");
 
 $.getJSON("styles.json", function (styles) {
     for (style in styles) {
