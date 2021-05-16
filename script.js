@@ -7,8 +7,16 @@ $.getJSON("styles.json", function (styles) {
     $(".color").click(function() {
         poster.setStyle(styles[$(this).data("color")]);
         poster.drawCanvas();
+        $("input[type=file]").toggle(typeof styles[$(this).data("color")].photo !== "undefined");
     });
-    $("input").keyup(function () {
+    $("input[type=file]").change(function () {
+        var fileReader = new FileReader();
+        fileReader.onload = function () {
+            poster.importImage(this.result);
+        };
+        fileReader.readAsDataURL(this.files[0]);
+    });
+    $("input[name=text]").keyup(function () {
         poster.setText($(this).val());
         poster.drawCanvas();
     });

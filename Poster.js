@@ -103,7 +103,7 @@ function Poster(parentElement, text = "") {
         //ctx.fillRect(0, c.height-marginBottom, c.width, c.height);
     }
     
-    function drawImage() {
+    function drawImage(imageSrc) {
         return new Promise(function (resolve, reject) {
             var img = new Image();
             img.onload = function () {
@@ -122,17 +122,23 @@ function Poster(parentElement, text = "") {
                 return resolve(img);
             }
             img.onerror = reject;
-            img.src = style.photo;
+            img.src = imageSrc;
         });
     }
     
-    async function drawCanvas() {
-        if (style.photo) {
-            await drawImage();
+    async function drawCanvas(backgroundDataURL) {
+        if (backgroundDataURL) {
+            await drawImage(backgroundDataURL);
+        } else if (style.photo) {
+            await drawImage(style.photo);
         }
         drawBackground();
         drawWords();
         drawLogo();
+    }
+
+    async function importImage(dataURL) {
+        drawCanvas(dataURL);
     }
 
     function exportImage() {
@@ -146,6 +152,7 @@ function Poster(parentElement, text = "") {
         setStyle,
         rotateCanvas,
         drawCanvas,
+        importImage,
         exportImage
     };
 }
