@@ -29,35 +29,21 @@
         "background": "#F9F9F6",
         "color": "#1D1621"
     },
-    "photo1": {
+    "red/p": {
         "img": "logo_transparent_cropped.svg",
-        "background": "#1D162177",
+        "background": "#E5454577",
         "color": "#FFFFFF",
         "photo": "photo-001.jpg",
         "filter": "grayscale(50%)"
     },
-    "photo2": {
+    "blue/p": {
         "img": "logo_transparent_cropped.svg",
-        "background": "#1D162177",
-        "color": "#FFFFFF",
-        "photo": "photo-002.jpg",
-        "filter": "grayscale(50%)"
-    },
-    "photo3": {
-        "img": "logo_transparent_cropped.svg",
-        "background": "#1D162177",
+        "background": "#1E59A677",
         "color": "#FFFFFF",
         "photo": "photo-003.jpg",
         "filter": "grayscale(50%)"
     },
-    "photo4": {
-        "img": "logo_transparent_cropped.svg",
-        "background": "#1D162177",
-        "color": "#FFFFFF",
-        "photo": "photo-004.jpg",
-        "filter": "grayscale(50%)"
-    },
-    "photo5": {
+    "black/p": {
         "img": "logo_transparent_cropped.svg",
         "background": "#1D162177",
         "color": "#FFFFFF",
