@@ -1,4 +1,4 @@
-function Poster(parentElement, text = "") {
+function Poster(parentElement, style, text = "", photo = "") {
     var c = document.createElement("canvas");
     c.className = "poster";
     parentElement.prepend(c);
@@ -21,17 +21,30 @@ function Poster(parentElement, text = "") {
 
     var orientation = "portrait";
 
+    drawCanvas();
+
     function setText(aText) {
         text = aText;
+        drawCanvas();
     }
+
+    function setPhoto(aPhoto) {
+        photo = aPhoto;
+        drawCanvas();
+    }
+
 
     function setStyle(aStyle) {
         style = aStyle;
+        if (!photo && style.photo) { // TODO placeholder?
+            photo = style.photo;
+        }
+        drawCanvas();
     }
 
     function rotateCanvas() {
         orientation = orientation === "portrait" ? "landscape" : "portrait";
-        c.width += c.height; console.log(c.width);
+        c.width += c.height;
         c.height = c.width - c.height;
         c.width -= c.height;
         drawCanvas();
@@ -103,7 +116,8 @@ function Poster(parentElement, text = "") {
         //ctx.fillRect(0, c.height-marginBottom, c.width, c.height);
     }
     
-    function drawImage(imageSrc) {
+    function drawPhoto() {
+        if (!photo) return;
         return new Promise(function (resolve, reject) {
             var img = new Image();
             img.onload = function () {
@@ -122,23 +136,15 @@ function Poster(parentElement, text = "") {
                 return resolve(img);
             }
             img.onerror = reject;
-            img.src = imageSrc;
+            img.src = photo; // TODO cache
         });
     }
     
     async function drawCanvas(backgroundDataURL) {
-        if (backgroundDataURL) {
-            await drawImage(backgroundDataURL);
-        } else if (style.photo) {
-            await drawImage(style.photo);
-        }
+        await drawPhoto();
         drawBackground();
         drawWords();
         drawLogo();
-    }
-
-    async function importImage(dataURL) {
-        drawCanvas(dataURL);
     }
 
     function exportImage() {
@@ -150,9 +156,9 @@ function Poster(parentElement, text = "") {
     return {
         setText,
         setStyle,
+        setPhoto,
         rotateCanvas,
         drawCanvas,
-        importImage,
         exportImage
     };
 }
