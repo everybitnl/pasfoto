@@ -80,10 +80,17 @@ function Poster(parentElement, style) {
     function drawSquare() {
         var ctx = c.getContext("2d");
         ctx.rotate(6 * Math.PI / 180);
-        ctx.beginPath();
         ctx.lineWidth = 20;
         ctx.strokeStyle = style.color;
-        ctx.rect(140, 40, 640, 640);
+        ctx.beginPath();
+        ctx.moveTo(140, 30); // links
+        ctx.lineTo(140, 590);
+        ctx.moveTo(149, 40); // boven
+        ctx.lineTo(680, 40);
+        ctx.moveTo(780, 140); // rechts
+        ctx.lineTo(780, 690);
+        ctx.moveTo(230, 680); // onder
+        ctx.lineTo(771, 680);
         ctx.stroke();
         ctx.rotate(-6 * Math.PI / 180);
     }
