@@ -97,8 +97,8 @@ function Poster(parentElement, style) {
 
     function exportImage() {
         var dataURL = c.toDataURL("image/png");
-        var newTab = window.open('about:blank','Tiltshift poster');
-        newTab.document.write(`<img src='${dataURL}' alt='${text}'/>`);
+        var newTab = window.open('about:blank','Tiltshift pasfoto');
+        newTab.document.write(`<img src='${dataURL}' alt='Tiltshift pasfoto'/>`);
     }
 
     return {
