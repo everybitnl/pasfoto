@@ -82,7 +82,7 @@ function Poster(parentElement, style) {
         ctx.rotate(6 * Math.PI / 180);
         ctx.beginPath();
         ctx.lineWidth = 20;
-        ctx.strokeStyle = "#E54545";
+        ctx.strokeStyle = style.color;
         ctx.rect(160, 60, 640, 640);
         ctx.stroke();
         ctx.rotate(-6 * Math.PI / 180);

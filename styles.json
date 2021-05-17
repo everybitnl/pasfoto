@@ -2,28 +2,35 @@
     "red/p": {
         "img": "logo_transparent_cropped.svg",
         "background": "#E5454577",
-        "color": "#FFFFFF",
+        "color": "#F9F9F6",
         "photo": "bert.jpg",
         "filter": "grayscale(50%)"
     },
-    "blue/p": {
+    "blue/r": {
         "img": "logo_transparent_cropped.svg",
         "background": "#1E59A677",
-        "color": "#FFFFFF",
+        "color": "#E54545",
         "photo": "bert.jpg",
         "filter": "grayscale(50%)"
     },
-    "black/p": {
+    "black/r": {
         "img": "logo_transparent_cropped.svg",
         "background": "#1D162177",
-        "color": "#FFFFFF",
+        "color": "#E54545",
         "photo": "bert.jpg",
         "filter": "grayscale(50%)"
     },
-    "white/p": {
+    "white/r": {
         "img": "logo_transparent_cropped.svg",
         "background": "#F9F9F633",
-        "color": "#1D1621",
+        "color": "#E54545",
+        "photo": "bert.jpg",
+        "filter": "grayscale(100%)"
+    },
+    "white/b": {
+        "img": "logo_transparent_cropped.svg",
+        "background": "#F9F9F633",
+        "color": "#1E59A6",
         "photo": "bert.jpg",
         "filter": "grayscale(100%)"
     }
