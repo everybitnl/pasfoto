@@ -3,28 +3,28 @@
         "img": "logo_transparent_cropped.svg",
         "background": "#E5454577",
         "color": "#FFFFFF",
-        "photo": "photo-001.jpg",
+        "photo": "bert.jpg",
         "filter": "grayscale(50%)"
     },
     "blue/p": {
         "img": "logo_transparent_cropped.svg",
         "background": "#1E59A677",
         "color": "#FFFFFF",
-        "photo": "photo-003.jpg",
+        "photo": "bert.jpg",
         "filter": "grayscale(50%)"
     },
     "black/p": {
         "img": "logo_transparent_cropped.svg",
         "background": "#1D162177",
         "color": "#FFFFFF",
-        "photo": "photo-005.jpg",
+        "photo": "bert.jpg",
         "filter": "grayscale(50%)"
     },
     "white/p": {
         "img": "logo_transparent_cropped.svg",
         "background": "#F9F9F633",
         "color": "#1D1621",
-        "photo": "photo-005.jpg",
+        "photo": "bert.jpg",
         "filter": "grayscale(100%)"
     }
 }
