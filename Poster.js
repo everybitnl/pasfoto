@@ -1,13 +1,14 @@
-function Poster(parentElement, style, text = "", photo = "") {
+function Poster(parentElement, style) {
     var c = document.createElement("canvas");
     c.className = "poster";
+    $(c).hide();
     parentElement.prepend(c);
 
     var ctx = c.getContext("2d");
 
     var originalFontSize = 52;
     var canvasHeight = 420;
-    var canvasWidth = Math.round(canvasHeight / Math.SQRT2); // A0 verhoudingen
+    var canvasWidth = canvasHeight; // vierkant
     var resolution = 2;
 
     c.width = canvasWidth * resolution;
@@ -18,15 +19,8 @@ function Poster(parentElement, style, text = "", photo = "") {
     var marginLeft = canvasHeight / 20 * resolution;
     
     var logoSize = canvasHeight / 10 * resolution;
-
-    var orientation = "portrait";
-
-    drawCanvas();
-
-    function setText(aText) {
-        text = aText;
-        drawCanvas();
-    }
+    
+    var photo;
 
     async function setPhoto(aPhoto) {
         photo = aPhoto;
@@ -41,59 +35,6 @@ function Poster(parentElement, style, text = "", photo = "") {
             photo = style.photo;
         }
         drawCanvas();
-    }
-
-    function rotateCanvas() {
-        orientation = orientation === "portrait" ? "landscape" : "portrait";
-        c.width += c.height;
-        c.height = c.width - c.height;
-        c.width -= c.height;
-        drawCanvas();
-    }
-
-    function drawWordsPortrait() {
-        var words = text.split(" ");
-        var fontSize = originalFontSize * resolution;
-        var lineHeight = 60 * resolution;
-    
-        if (words.length > 5) {
-            fontSize = fontSize * 5 / words.length;
-            lineHeight = (c.height - marginTop - marginBottom) / (words.length - 1);
-        }
-    
-        ctx.font = `${fontSize}px HelveticaNeueLTPro-Bd`;
-        ctx.fillStyle = style.color;
-    
-        for (var i = 0; i < words.length; ++i) {
-            ctx.fillText(words[i], marginLeft, marginTop + i * lineHeight);
-        }
-    }
-
-    function drawWordsLandscape() {
-        var words = text.split(" ");
-        var fontSize = originalFontSize * resolution;
-        var lineHeight = 60 * resolution;
-    
-        ctx.font = `${fontSize}px HelveticaNeueLTPro-Bd`;
-        ctx.fillStyle = style.color;
-        ctx.textAlign = "center";
-    
-        var textlines = [words[0]];
-        for (var i = 1, j = 0; i < words.length; ++i) {
-            if (ctx.measureText(textlines[j]).width + ctx.measureText(` ${words[i]}`).width < (c.width - 2 * marginLeft)) {
-                textlines[j] += ` ${words[i]}`;
-            } else {
-                textlines[++j] = words[i];
-            }
-        }
-
-        for (var j = 0; j < textlines.length; ++j) {
-            ctx.fillText(textlines[j], c.width / 2, (c.height - (textlines.length - 1) * lineHeight) / 2 + (j + 0.25) * lineHeight);
-        }
-    }
-
-    function drawWords() {
-        orientation === "portrait" ? drawWordsPortrait() : drawWordsLandscape();
     }
     
     function drawLogo() {
@@ -111,10 +52,6 @@ function Poster(parentElement, style, text = "", photo = "") {
     function drawBackground() {
         ctx.fillStyle = style.background;
         ctx.fillRect(0, 0, c.width, c.height);
-    
-        //ctx.fillStyle = "#AAAAAA";
-        //ctx.fillRect(0, 0, c.width, marginTop);
-        //ctx.fillRect(0, c.height-marginBottom, c.width, c.height);
     }
     
     function drawPhoto() {
@@ -139,12 +76,21 @@ function Poster(parentElement, style, text = "", photo = "") {
             img.src = photo; // TODO cache
         });
     }
+
+    function drawSquare() {
+        ctx.rotate(6 * Math.PI / 180);
+        ctx.beginPath();
+        ctx.lineWidth = 20;
+        ctx.strokeStyle = "red";
+        ctx.rect(160, 60, 640, 640);
+        ctx.stroke();
+    }
     
     async function drawCanvas(backgroundDataURL) {
         await drawPhoto();
         drawBackground();
-        drawWords();
         drawLogo();
+        drawSquare();
     }
 
     function exportImage() {
@@ -154,10 +100,8 @@ function Poster(parentElement, style, text = "", photo = "") {
     }
 
     return {
-        setText,
         setStyle,
         setPhoto,
-        rotateCanvas,
         drawCanvas,
         exportImage
     };
