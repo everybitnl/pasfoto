@@ -78,21 +78,30 @@ function Poster(parentElement, style) {
     }
 
     function drawSquare() {
+        var angle = style.randomize ? -12 + 24 * Math.random(): 6;
+        var rotate = style.randomize ? 360 * Math.random(): 0;
+        var x = c.width;
+        var l = 0.75 * x / 2;
+        var w = 10;
+        var g = 100;
         var ctx = c.getContext("2d");
-        ctx.rotate(6 * Math.PI / 180);
-        ctx.lineWidth = 20;
+        ctx.translate(x / 2, x / 2);
+        ctx.rotate(angle * Math.PI / 180);
+        ctx.lineWidth = 2 * w;
         ctx.strokeStyle = style.color;
+        ctx.filter = `hue-rotate(${rotate}deg)`;
         ctx.beginPath();
-        ctx.moveTo(140, 30); // links
-        ctx.lineTo(140, 590);
-        ctx.moveTo(149, 40); // boven
-        ctx.lineTo(680, 40);
-        ctx.moveTo(780, 140); // rechts
-        ctx.lineTo(780, 690);
-        ctx.moveTo(230, 680); // onder
-        ctx.lineTo(771, 680);
+        ctx.moveTo(-l - w, -l); // boven
+        ctx.lineTo(l - g, -l);
+        ctx.moveTo(-l, -l + w - 1); // links
+        ctx.lineTo(-l, l - g * 0.9);
+        ctx.moveTo(l, -l + g); // rechts
+        ctx.lineTo(l, l + w);
+        ctx.moveTo(-l + g, l); // onder
+        ctx.lineTo(l - w + 1, l);
         ctx.stroke();
-        ctx.rotate(-6 * Math.PI / 180);
+        ctx.rotate(-angle * Math.PI / 180);
+        ctx.translate(-x / 2, - x / 2);
     }
     
     async function drawCanvas(backgroundDataURL) {

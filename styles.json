@@ -33,5 +33,13 @@
         "color": "#1E59A6EE",
         "photo": "bert.jpg",
         "filter": "grayscale(100%) contrast(150%)"
+    },
+    "rand": {
+        "img": "logo_transparent_cropped.svg",
+        "background": "#F9F9F633",
+        "color": "#E54545EE",
+        "photo": "bert.jpg",
+        "filter": "grayscale(100%) contrast(150%)",
+        "randomize": true
     }
 }
