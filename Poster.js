@@ -42,7 +42,7 @@ function Poster(parentElement, style) {
         img.onload = function () {
             ctx.drawImage(img,
                 c.width - (logoSize * 1.25),
-                c.height - (logoSize * 1.25),
+                logoSize * 0.25,
                 logoSize, logoSize
             );
         }
@@ -107,7 +107,7 @@ function Poster(parentElement, style) {
     async function drawCanvas(backgroundDataURL) {
         await drawPhoto();
         drawBackground();
-        drawLogo();
+        //drawLogo();
         drawSquare();
     }
 

@@ -19,7 +19,7 @@
 	height: 42px;
 	width: 42px;
 	position: absolute;
-	bottom: 11px;
+	top: 11px;
 	right: 11px;
 	background: url(logo_transparent_cropped.svg) center center no-repeat;
 	background-size: cover;
