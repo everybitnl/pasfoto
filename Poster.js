@@ -78,12 +78,14 @@ function Poster(parentElement, style) {
     }
 
     function drawSquare() {
+        var ctx = c.getContext("2d");
         ctx.rotate(6 * Math.PI / 180);
         ctx.beginPath();
         ctx.lineWidth = 20;
-        ctx.strokeStyle = "red";
+        ctx.strokeStyle = "#E54545";
         ctx.rect(160, 60, 640, 640);
         ctx.stroke();
+        ctx.rotate(-6 * Math.PI / 180);
     }
     
     async function drawCanvas(backgroundDataURL) {
