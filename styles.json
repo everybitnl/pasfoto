@@ -22,8 +22,8 @@
     },
     "white/p": {
         "img": "logo_transparent_cropped.svg",
-        "background": "#FFFFFF33",
-        "color": "#000000",
+        "background": "#F9F9F633",
+        "color": "#1D1621",
         "photo": "photo-005.jpg",
         "filter": "grayscale(100%)"
     }
